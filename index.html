@@ -282,7 +282,7 @@ button { font-family: inherit; }
     </div>
   </section>
 
-  <section id="proslave" data-screen-label="05 Proslave" style="scroll-margin-top: 68px; padding: {{ sec }};">
+  <section id="proslave" data-screen-label="05 Proslave" style="scroll-margin-top: 68px; padding: {{ secNoTop }};">
     <div style="max-width: 1100px; margin: 0 auto;">
       <div data-reveal="up" style="display: flex; align-items: center; gap: 16px; font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7D6438;">
         <span style="width: 32px; height: 1px; background: #B99A65;"></span>
@@ -662,7 +662,7 @@ class Component extends DCLogic {
       kf = [{ opacity: 1, clipPath: 'inset(100% 0 0 0)' }, { opacity: 1, clipPath: 'inset(0% 0 0 0)' }];
       dur = 1400;
       const im = el.querySelector('img');
-      if (im) im.animate([{ transform: 'scale(1.18)' }, { transform: 'scale(1)' }], { duration: 2000, delay, easing: EASE, fill: 'backwards' });
+      if (im) im.animate([{ transform: 'scale(1.18)' }, { transform: 'scale(1)' }], { duration: 1100, delay, easing: EASE, fill: 'backwards' });
     } else if (type === 'fade') {
       kf = [{ opacity: 0 }, { opacity: 1 }];
       dur = 900;
@@ -678,10 +678,10 @@ class Component extends DCLogic {
     } else {
       kf = [{ opacity: 0, transform: 'translateY(24px)' }, { opacity: 1, transform: 'translateY(0)' }];
     }
-    el.animate(kf, { duration: dur, delay, easing: EASE, fill: 'backwards' });
+    el.animate(kf, { duration: Math.round(dur * 0.55), delay, easing: EASE, fill: 'backwards' });
     el.style.opacity = '';
     el.querySelectorAll('[data-line]').forEach((l) => {
-      l.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 1400, delay: delay + 100, easing: EASE, fill: 'backwards' });
+      l.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 750, delay: delay + 60, easing: EASE, fill: 'backwards' });
       l.style.transform = '';
     });
   }
@@ -705,9 +705,9 @@ class Component extends DCLogic {
         .sort((a, b) => (a.boundingClientRect.top - b.boundingClientRect.top) || (a.boundingClientRect.left - b.boundingClientRect.left));
       vis.forEach((en, i) => {
         this.io.unobserve(en.target);
-        this.play(en.target, en.target.dataset.reveal || 'up', i * 90);
+        this.play(en.target, en.target.dataset.reveal || 'up', i * 50);
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
     els.forEach((el) => this.io.observe(el));
 
     document.querySelectorAll('[data-float]').forEach((el, i) => {
@@ -735,6 +735,7 @@ class Component extends DCLogic {
 
       padX: wide ? '40px' : '20px',
       sec: wide ? '96px 40px' : '64px 20px',
+      secNoTop: wide ? '0 40px 96px' : '0 20px 64px',
       headGap: wide ? '64px' : '40px',
       blockGap: wide ? '48px' : '32px',
       galGap: wide ? '16px' : '8px',
