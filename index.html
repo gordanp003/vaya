@@ -15,7 +15,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
 <style>
 html { scroll-behavior: smooth; }
-body { margin: 0; background: #FAF8F4; color: #292725; font-family: 'Jost', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body { margin: 0; background: #FAF8F4; color: #292725; font-family: 'Jost', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+html { scroll-padding-top: 68px; }
+@media (max-width: 768px) and (max-height: 760px) { .hero-p { display: none; } }
 * { box-sizing: border-box; }
 a { color: #292725; text-decoration: none; }
 a:hover { color: #7D6438; }
@@ -28,10 +30,10 @@ button { font-family: inherit; }
 
 <div style="background: #FAF8F4; color: #292725; font-family: 'Jost', sans-serif; font-size: 18px; line-height: 1.7; font-weight: 400;">
 
-  <header data-screen-label="Header" data-load="0" data-anim="fade" style="opacity: 0; position: sticky; top: 0; z-index: 20; background: #FAF8F4; border-bottom: 1px solid #E6DFD3; transform: {{ headerTransform }}; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);">
+  <header data-screen-label="Header" data-load="0" data-anim="fade" style="opacity: 0; position: sticky; top: 0; z-index: 20; background: #FAF8F4; border-bottom: 1px solid #E6DFD3;">
     <div style="max-width: 1180px; margin: 0 auto; padding: 12px {{ padX }}; display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 68px;">
       <a href="#vrh" aria-label="VAYA početna" style="display: flex; align-items: center; flex-shrink: 0;">
-        <img src="assets/vaya-mark-gold.png" alt="VAYA" width="838" height="496" style="height: 40px; width: auto; transform: translateY(-11px);">
+        <img decoding="async" src="assets/vaya-mark-gold.png" alt="VAYA" width="838" height="496" style="height: 40px; width: auto; transform: translateY(-11px);">
       </a>
       <sc-if value="{{ navFull }}" hint-placeholder-val="{{ true }}">
         <nav aria-label="Glavna navigacija" style="display: flex; gap: 32px; font-size: 15px; letter-spacing: 0.02em;">
@@ -72,37 +74,37 @@ button { font-family: inherit; }
     </sc-if>
   </header>
 
-  <section id="vrh" data-screen-label="01 Hero" style="min-height: {{ heroMinH }}; display: flex; align-items: center; padding: {{ heroPad }};">
-    <div style="max-width: 1100px; width: 100%; margin: 0 auto; display: grid; grid-template-columns: {{ heroCols }}; column-gap: 80px; row-gap: 32px; align-items: center;">
-      <div>
+  <section id="vrh" data-screen-label="01 Hero" style="min-height: {{ heroMinH }}; height: {{ heroH }}; display: flex; align-items: {{ heroAlign }}; padding: {{ heroPad }}; box-sizing: border-box;">
+    <div style="max-width: 1100px; width: 100%; height: {{ heroInnerH }}; margin: 0 auto; display: {{ heroDisp }}; flex-direction: column; grid-template-columns: {{ heroCols }}; column-gap: 80px; row-gap: {{ heroGap }}; align-items: {{ heroItems }};">
+      <div style="flex: 0 0 auto;">
         <div style="display: flex; align-items: center; gap: 16px; font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7D6438;">
           <span data-load="200" data-anim="draw" style="opacity: 0; width: 32px; height: 1px; background: #B99A65; transform-origin: left center;"></span>
           <span data-load="300" style="opacity: 0;">Pokretna igraonica · Beograd</span>
         </div>
-        <h1 style="margin: 24px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(44px, min(5.4vw, 8.4vh), 68px); line-height: 1.04; letter-spacing: -0.015em;">
+        <h1 style="margin: {{ heroH1M }} 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: {{ heroH1 }}; line-height: 1.04; letter-spacing: -0.015em;">
           <span style="display: block; overflow: hidden; padding: 0 0.08em 0.08em 0; margin-bottom: -0.08em;"><span data-load="380" data-anim="line" style="opacity: 0; display: block;">Dečija radost.</span></span>
           <span style="display: block; overflow: hidden; padding: 0 0.08em 0.08em 0; margin-bottom: -0.08em;"><span data-load="470" data-anim="line" style="opacity: 0; display: block;">Vaša bezbrižnost.</span></span>
           <span style="display: block; overflow: hidden; padding: 0 0.08em 0.08em 0; margin-bottom: -0.08em;"><span data-load="560" data-anim="line" style="opacity: 0; display: block;"><em style="font-style: italic; font-weight: 400; color: #7D6438;">Uspomene za ceo život.</em></span></span>
         </h1>
-        <p data-load="760" style="opacity: 0; margin: 24px 0 0; max-width: 34em; font-size: 18px; color: #5E5954; text-wrap: pretty;">VAYA je pokretna igraonica iz Beograda. Dolazimo na vašu proslavu, igramo se sa mališanima i pazimo na njih, a vi za to vreme sedite sa gostima i uživate u danu.</p>
-        <div data-load="880" style="opacity: 0; margin-top: 32px; display: flex; flex-direction: {{ ctaDir }}; flex-wrap: wrap; gap: 12px;">
-          <a href="{{ primaryHref }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 32px; background: #B99A65; color: #292725; border-radius: 6px; font-size: 14px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1; white-space: nowrap; transition: background 0.3s;" style-hover="background: #A88A57; color: #292725;">Rezervišite svoj termin</a>
-          <a href="#ponuda" style="display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 32px; border: 1px solid #292725; color: #292725; border-radius: 6px; font-size: 14px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1; white-space: nowrap; transition: background 0.3s, color 0.3s;" style-hover="background: #292725; color: #FAF8F4;">Pogledajte našu ponudu</a>
+        <p class="hero-p" data-load="760" style="opacity: 0; margin: {{ heroH1M }} 0 0; max-width: 34em; font-size: {{ heroPSize }}; line-height: 1.6; color: #5E5954; text-wrap: pretty;">VAYA je pokretna igraonica iz Beograda. Dolazimo na vašu proslavu, igramo se sa mališanima i pazimo na njih, a vi za to vreme sedite sa gostima i uživate u danu.</p>
+        <div data-load="880" style="opacity: 0; margin-top: {{ heroCtaM }}; display: grid; width: 100%; max-width: 600px; grid-template-columns: {{ ctaCols }}; gap: 12px;">
+          <a href="{{ primaryHref }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 20px; background: #B99A65; color: #292725; border-radius: 6px; font-size: 14px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1; white-space: nowrap; transition: background 0.3s;" style-hover="background: #A88A57; color: #292725;">Rezervišite svoj termin</a>
+          <a href="#ponuda" style="display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 20px; border: 1px solid #292725; color: #292725; border-radius: 6px; font-size: 14px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1; white-space: nowrap; transition: background 0.3s, color 0.3s;" style-hover="background: #292725; color: #FAF8F4;">Pogledajte našu ponudu</a>
         </div>
         <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
           <p data-load="1000" style="opacity: 0; margin: 24px 0 0; font-size: 15px; color: #5E5954;">Rođendani, krštenja, venčanja i porodične proslave</p>
         </sc-if>
       </div>
-      <div style="position: relative; order: {{ heroPhotoOrder }}; padding: {{ heroPhotoPad }};">
+      <div style="position: relative; order: {{ heroPhotoOrder }}; padding: {{ heroPhotoPad }}; flex: 1 1 0; min-height: 0;">
         <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
           <div data-load="1000" data-anim="frame" style="opacity: 0; position: absolute; top: 64px; left: 16px; right: 0; bottom: 0; border: 1px solid #D9C7A6; border-radius: 4px;"></div>
         </sc-if>
         <div data-load="240" data-anim="img" style="opacity: 0; position: relative; height: {{ heroPhotoH }}; aspect-ratio: {{ heroAspect }}; border-radius: 4px; overflow: hidden; background: #E9E5DE;">
-          <img src="assets/foto/hero-animatorka.jpg" alt="Animatorka VAYA tima pored bazena sa lopticama, sa malim dečakom" width="960" height="828" style="width: 100%; height: 100%; object-fit: cover; object-position: 58% center;">
+          <img decoding="async" fetchpriority="high" src="assets/foto/hero-animatorka.jpg" alt="Animatorka VAYA tima pored bazena sa lopticama, sa malim dečakom" width="960" height="828" style="width: 100%; height: 100%; object-fit: cover; object-position: 58% center;">
         </div>
         <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
           <div data-load="1200" data-anim="rise" style="opacity: 0; position: absolute; top: 0; right: 64px; z-index: 2;">
-            <img data-float="" src="assets/vaya-balloon-gold.png" alt="" aria-hidden="true" width="143" height="269" style="height: 120px; width: auto;">
+            <img decoding="async" data-float="" src="assets/vaya-balloon-gold.png" alt="" aria-hidden="true" width="143" height="269" style="height: 120px; width: auto;">
           </div>
         </sc-if>
       </div>
@@ -124,11 +126,11 @@ button { font-family: inherit; }
         </div>
       </div>
       <div style="margin-top: {{ headGap }}; display: flex; flex-wrap: wrap; gap: 16px;">
-        <div data-reveal="img" style="flex: 2 1 420px; height: clamp(280px, 36vw, 480px); border-radius: 4px; overflow: hidden; background: #E9E1D4;">
-          <img src="assets/foto/dvorac.jpg" alt="Beli dvorac za skakanje i kutak za igru postavljen u restoranu pored reke" width="960" height="640" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+        <div data-reveal="img" style="flex: 1 1 260px; height: clamp(320px, 38vw, 520px); border-radius: 4px; overflow: hidden; background: #E9E1D4;">
+          <img decoding="async" src="assets/foto/osmeh.jpg" alt="Članica VAYA tima sa osmehom pokazuje logo na majici" width="900" height="1600" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; object-position: center 28%;">
         </div>
-        <div data-reveal="img" style="flex: 1 1 260px; height: clamp(280px, 36vw, 480px); border-radius: 4px; overflow: hidden; background: #E9E1D4;">
-          <img src="assets/foto/stolovi-reka.jpg" alt="Dečji stolovi sa bojankama pored prozora sa pogledom na reku" width="720" height="960" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+        <div data-reveal="img" style="flex: 1.6 1 360px; height: clamp(320px, 38vw, 520px); border-radius: 4px; overflow: hidden; background: #E9E1D4;">
+          <img decoding="async" src="assets/foto/meda.jpg" alt="Lux maskota meda sa plavom mašnom i balonima" width="960" height="697" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; object-position: center 40%;">
         </div>
       </div>
       <div style="margin-top: {{ headGap }}; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); column-gap: 80px; row-gap: 24px; align-items: center;">
@@ -160,18 +162,18 @@ button { font-family: inherit; }
   </section>
 
   <section data-screen-label="03 Svaki osmeh" style="background: #E8EDEF; padding: {{ sec }};">
-    <div style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); column-gap: 96px; row-gap: 40px; align-items: center;">
+    <div style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: {{ osmehCols }}; column-gap: {{ osmehGap }}; row-gap: 40px; align-items: stretch;">
       <div>
         <div data-reveal="rise">
-          <img data-float="" src="assets/vaya-balloon-gold.png" alt="" aria-hidden="true" width="143" height="269" style="height: 80px; width: auto;">
+          <img decoding="async" data-float="" src="assets/vaya-balloon-gold.png" alt="" aria-hidden="true" width="143" height="269" style="height: 80px; width: auto;">
         </div>
         <h2 data-reveal="mask" style="margin: 32px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(40px, 5vw, 60px); line-height: 1.04; letter-spacing: -0.01em; text-wrap: balance;">Svaki osmeh nam je <em style="font-style: italic; font-weight: 400; color: #6E5932;">važan.</em></h2>
         <p data-reveal="up" style="margin: 24px 0 0; max-width: 52ch; color: #545A5E; text-wrap: pretty;">U VAYA svetu, dečija radost je uvek na prvom mestu. Naš tim je tu da mališanima pruži pažnju, podršku i prostor za bezbrižnu igru, dok roditelji mogu da se opuste i uživaju u svakom trenutku proslave.</p>
         <p data-reveal="up" style="margin: 16px 0 0; max-width: 52ch; color: #545A5E; text-wrap: pretty;">Sa ljubavlju, posvećenošću i osmehom stvaramo atmosferu u kojoj se svako dete oseća lepo, sigurno i slobodno da istražuje, igra se i uživa.</p>
         <p data-reveal="up" style="margin: 32px 0 0; padding-top: 24px; border-top: 1px solid #C9D3D8; max-width: 30em; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(26px, 2.6vw, 30px); line-height: 1.3; color: #6E5932; text-wrap: balance;">Jer najlepši deo svake proslave jesu srećna i nasmejana deca.</p>
       </div>
-      <div data-reveal="img" style="justify-self: end; aspect-ratio: 4 / 5; max-width: 460px; width: 100%; border-radius: 4px; overflow: hidden; background: #DCE3E6;">
-        <img src="assets/foto/osmeh.jpg" alt="Članica VAYA tima sa osmehom pokazuje logo na majici" width="900" height="1600" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%;">
+      <div data-reveal="img" style="position: relative; justify-self: end; aspect-ratio: {{ osmehAspect }}; min-height: 420px; max-width: 460px; width: 100%; border-radius: 4px; overflow: hidden; background: #DCE3E6;">
+        <video data-autoplay="" muted="" loop="" playsinline="" preload="none" poster="assets/video/vaya-video-poster.jpg" aria-label="Video sa VAYA proslave: tim, deca i igra" width="720" height="1280" style="position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 30%;"><source src="assets/video/vaya-video.mp4" type="video/mp4"></video>
       </div>
     </div>
   </section>
@@ -194,11 +196,11 @@ button { font-family: inherit; }
             <article data-reveal="up" style="min-width: 0; display: flex; flex-direction: column;">
               <div style="position: relative; aspect-ratio: 1 / 1; border-radius: 4px; overflow: hidden; background: {{ it.tile }};">
                 <sc-if value="{{ it.hasImg }}" hint-placeholder-val="{{ true }}">
-                  <img src="{{ it.img }}" alt="{{ it.alt }}" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: {{ it.pos }}; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);" style-hover="transform: scale(1.05);">
+                  <img decoding="async" src="{{ it.img }}" alt="{{ it.alt }}" width="960" height="960" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: {{ it.pos }}; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);" style-hover="transform: scale(1.05);">
                 </sc-if>
                 <sc-if value="{{ it.noImg }}" hint-placeholder-val="{{ false }}">
                   <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 32px; text-align: center;">
-                    <img src="assets/vaya-balloon-gold.png" alt="" style="width: 64px; height: auto;">
+                    <img decoding="async" src="assets/vaya-balloon-gold.png" alt="" style="width: 64px; height: auto;">
                     <span style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(28px, 3vw, 34px); line-height: 1.15; color: #7D6438; text-wrap: balance;">{{ it.quote }}</span>
                   </div>
                 </sc-if>
@@ -216,7 +218,7 @@ button { font-family: inherit; }
           <sc-if value="{{ false }}" hint-placeholder-val="{{ true }}">
             <div data-row="" style="padding: 24px 0; border-top: 1px solid #E6DFD3; display: grid; grid-template-columns: {{ maskCols }}; column-gap: 24px; row-gap: 16px; align-items: center;">
               <div style="aspect-ratio: 1 / 1; border-radius: 4px; overflow: hidden; background: #E9E1D4;">
-                <img src="assets/foto/meda.jpg" alt="Lux maskota meda sa plavom mašnom" width="960" height="697" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                <img decoding="async" src="assets/foto/meda.jpg" alt="Lux maskota meda sa plavom mašnom" width="960" height="697" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
               </div>
               <div style="min-width: 0;">
                 <h4 style="margin: 0; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 26px; line-height: 1.2;">Lux maskote</h4>
@@ -325,7 +327,7 @@ button { font-family: inherit; }
       </div>
       <div data-reveal="up" style="position: relative; padding-top: 32px;">
         <span data-line="" style="position: absolute; top: 0; left: 0; right: 0; height: 1px; background: #DDD3C2; transform-origin: left center;"></span>
-        <p style="margin: 0; max-width: 60ch; font-size: 16px; color: #5E5954; text-wrap: pretty;">Svaka proslava je drugačija, pa konkretne mogućnosti dogovaramo zajedno sa vama. Ako slavite nešto čega nema na spisku, slobodno nam pišite.</p>
+        <p style="margin: 0; max-width: 60ch; font-size: 16px; color: #5E5954; text-wrap: pretty;">Svaka proslava je drugačija, pa konkretne mogućnosti dogovaramo sa vama. Tu smo za sve vrste proslava i događaja, kako bismo svaki vaš poseban dan učinili još lepšim i veselijim.</p>
       </div>
     </div>
   </section>
@@ -340,11 +342,11 @@ button { font-family: inherit; }
           </div>
           <h2 data-reveal="mask" style="margin: 24px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(40px, 5vw, 60px); line-height: 1.04; letter-spacing: -0.01em; text-wrap: balance;">Kako izgleda dogovor</h2>
         </div>
-        <p data-reveal="up" style="margin: 0; max-width: 40ch; color: #545A5E; text-wrap: pretty;">Sve ide kroz običan razgovor. Od prve poruke do dana proslave pričate sa nama.</p>
+        <p data-reveal="up" style="margin: 0; max-width: 40ch; color: #545A5E; text-wrap: pretty;">Sve ide kroz običan razgovor. Od prvog kontakta tu smo da vas oslobodimo svake brige i zajedno osmislimo savršenu zabavu.</p>
       </div>
       <div style="margin-top: {{ headGap }}; display: grid; grid-template-columns: {{ teamCols }}; column-gap: 64px; row-gap: 40px; align-items: stretch;">
       <div data-reveal="img" style="position: relative; min-height: {{ teamMinH }}; border-radius: 4px; overflow: hidden; background: #DCE3E6;">
-        <img src="assets/foto/ruka-logo.jpg" alt="Mali dečak stavlja ruku na VAYA logo" width="640" height="960" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center;">
+        <img decoding="async" src="assets/foto/ruka-logo.jpg" alt="Mali dečak stavlja ruku na VAYA logo" width="640" height="960" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center;">
       </div>
       <ol style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #C9D3D8; display: flex; flex-direction: column; justify-content: space-between;">
         <li data-reveal="up" style="position: relative; padding: 32px 0; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 8px;">
@@ -360,7 +362,7 @@ button { font-family: inherit; }
           <span style="font-family: 'Cormorant Garamond', serif; font-size: 44px; line-height: 1; color: #A0824F;">2</span>
           <div>
             <h3 style="margin: 0; font-size: 18px; font-weight: 500; letter-spacing: 0.01em;">Proveravamo termin</h3>
-            <p style="margin: 8px 0 0; max-width: 52ch; font-size: 16px; color: #545A5E; text-wrap: pretty;">Javljamo vam da li smo slobodni tog dana, da znate na čemu ste pre nego što krenete dalje.</p>
+            <p style="margin: 8px 0 0; max-width: 52ch; font-size: 16px; color: #545A5E; text-wrap: pretty;">Javljamo vam da li smo slobodni tog dana, kako bismo odmah znali da li možemo da se družimo.</p>
           </div>
         </li>
         <li data-reveal="up" style="position: relative; padding: 32px 0; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 8px;">
@@ -404,7 +406,7 @@ button { font-family: inherit; }
           <div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: {{ galGap }};">
             <sc-for list="{{ col }}" as="g" hint-placeholder-count="3">
               <button type="button" data-i="{{ g.i }}" data-reveal="img" onClick="{{ openLb }}" aria-label="Otvori fotografiju" style="display: block; width: 100%; margin: 0; padding: 0; border: 0; background: #E9E5DE; border-radius: 4px; overflow: hidden; cursor: zoom-in;">
-                <img src="{{ g.src }}" alt="{{ g.alt }}" width="{{ g.w }}" height="{{ g.h }}" loading="lazy" style="display: block; width: 100%; height: auto; aspect-ratio: {{ g.ratio }}; object-fit: cover; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);" style-hover="transform: scale(1.04);">
+                <img decoding="async" src="{{ g.src }}" alt="{{ g.alt }}" width="{{ g.w }}" height="{{ g.h }}" loading="lazy" style="display: block; width: 100%; height: auto; aspect-ratio: {{ g.ratio }}; object-fit: cover; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);" style-hover="transform: scale(1.04);">
               </button>
             </sc-for>
           </div>
@@ -450,7 +452,7 @@ button { font-family: inherit; }
     <div style="max-width: 1100px; margin: 0 auto;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 40px;">
         <div style="display: flex; flex-direction: column; gap: 16px;">
-          <img src="assets/vaya-logo-light.png" alt="VAYA Play Events Memories" width="838" height="566" style="height: 64px; width: auto; align-self: flex-start;">
+          <img decoding="async" src="assets/vaya-logo-light.png" alt="VAYA Play Events Memories" width="838" height="566" style="height: 64px; width: auto; align-self: flex-start;">
           <p style="margin: 0; max-width: 30ch; color: #A39C92;">Pokretna igraonica iz Beograda. Dolazimo na vašu proslavu.</p>
         </div>
         <div>
@@ -551,11 +553,11 @@ const INCLUDED = [
   ['Dekoracija dvorca', 'Za još lepšu i čarobniju atmosferu.']
 ].map(([t, d]) => ({ t, d }));
 const ITEMS = [
-  { n: '1', name: 'Dvorci na naduvavanje', img: 'assets/foto/dvorac.jpg', alt: 'Beli lux dvorac na naduvavanje sa balonima', pos: '50% 60%', desc: 'Vrhunski beli lux dvorci sa toboganom i prostranim zonama za skakanje, dizajnirani da svaku proslavu pretvore u pravu bajku.' },
-  { n: '2', name: 'Bubble house', img: 'assets/foto/bubble-house.jpg', alt: 'Providna Bubble house kućica puna balona', pos: '50% 40%', desc: 'Providna kućica puna balona u boji koju sami birate. Mesto gde deca uživaju, a nastaju najlepše fotografije sa proslave.' },
-  { n: '3', name: 'Play soft igrališta', img: 'assets/foto/play-soft.jpg', alt: 'Dečak u play soft igralištu sa belom ogradicom', pos: '50% 35%', desc: 'Mekano i bezbedno igralište sa tunelom, piramidom, kockama, klackalicama i bazenom sa lopticama, napravljeno za najmlađe mališane.' },
-  { n: '4', name: 'Bazeni sa lopticama', img: 'assets/foto/bazen-loptice.jpg', alt: 'Beba u bazenu sa plavim, belim i žutim lopticama', pos: '45% 50%', desc: 'Bazeni sa lopticama, sa ili bez tobogana, u boji loptica po vašem izboru.' },
-  { n: '5', name: 'Lux autići na sudaranje', quote: 'Prava vožnja za male vozače', tile: '#E8EDEF', desc: 'Električni autići za malo veće mališane koji žele pravu vožnju, uzbuđenje i mnogo smeha.' },
+  { n: '1', name: 'Dvorci na naduvavanje', img: 'assets/foto/ponuda-dvorac.jpg', alt: 'Beli lux dvorac na naduvavanje sa toboganom', pos: '50% 50%', desc: 'Vrhunski beli lux dvorci sa toboganom i prostranim zonama za skakanje, dizajnirani da svaku proslavu pretvore u pravu bajku.' },
+  { n: '2', name: 'Bubble house', img: 'assets/foto/ponuda-bubble-house.jpg', alt: 'Providna Bubble house kućica puna balona', pos: '50% 50%', desc: 'Providna kućica puna balona u boji koju sami birate. Mesto gde deca uživaju, a nastaju najlepše fotografije sa proslave.' },
+  { n: '3', name: 'Play soft igrališta', img: 'assets/foto/ponuda-play-soft.jpg', alt: 'Play soft igralište sa dugom, piramidom, klackalicama i bazenom sa lopticama', pos: '50% 50%', desc: 'Mekano i bezbedno igralište sa dugom, valjkom, tunelom, piramidom, kockama, klackalicom bananom, klackalicom autićem i bazenom sa lopticama, napravljeno za najmlađe mališane.' },
+  { n: '4', name: 'Bazeni sa lopticama', img: 'assets/foto/ponuda-bazen.jpg', alt: 'Beli bazen sa lopticama i stepenicama', pos: '50% 50%', desc: 'Bazeni sa lopticama, sa ili bez tobogana, u boji loptica po vašem izboru.' },
+  { n: '5', name: 'Lux autići na sudaranje', img: 'assets/foto/ponuda-autici.jpg', alt: 'Arena na naduvavanje sa pet autića na sudaranje', pos: '50% 50%', desc: 'Električni autići za malo veće mališane koji žele pravu vožnju, uzbuđenje i mnogo smeha.' },
   { n: '6', name: 'Lux maskote', img: 'assets/foto/meda.jpg', alt: 'Lux maskota meda sa plavom mašnom', pos: '50% 40%', desc: 'Maskote za dečake i za devojčice koje slavljeniku i gostima donose poseban, nezaboravan trenutak.' }
 ].map((r) => ({ ...r, hasImg: !!r.img, noImg: !r.img, tile: r.tile || '#E9E1D4', pos: r.pos || '50% 50%', img: r.img || '', alt: r.alt || '', quote: r.quote || '' }));
 const prep = (list) => list.map((r) => ({ ...r, hasDesc: !!r.desc, hasDims: !!r.dims }));
@@ -593,8 +595,6 @@ class Component extends DCLogic {
       requestAnimationFrame(() => {
         const y = window.scrollY;
         if (Math.abs(y - this.lastY) > 6) {
-          const hide = y > this.lastY && y > 240 && !this.state.menu;
-          if (hide !== this.state.hdrHidden) this.setState({ hdrHidden: hide });
           this.lastY = y;
         }
         this.ticking = false;
@@ -604,6 +604,7 @@ class Component extends DCLogic {
 
     this.reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     requestAnimationFrame(() => this.setupMotion());
+    this.setupVideo();
     this.safety = setTimeout(() => document.querySelectorAll('[data-load]').forEach((el) => { el.style.opacity = ''; }), 2500);
   }
 
@@ -613,6 +614,7 @@ class Component extends DCLogic {
     window.removeEventListener('keydown', this.onKey);
     window.removeEventListener('scroll', this.onScroll);
     if (this.io) this.io.disconnect();
+    if (this.vio) this.vio.disconnect();
     clearTimeout(this.safety);
     document.body.style.overflow = '';
   }
@@ -642,7 +644,7 @@ class Component extends DCLogic {
     }
     if (!prev.menu && s.menu && !this.reduce && this.menuRef.current) {
       const m = this.menuRef.current;
-      m.animate([{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 600, easing: EASE });
+      m.animate([{ opacity: 0, transform: 'translateY(-8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 400, easing: EASE });
       Array.from(m.querySelectorAll('nav a')).forEach((a, i) => {
         a.animate([{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 600, delay: 80 + i * 50, easing: EASE, fill: 'backwards' });
       });
@@ -656,13 +658,13 @@ class Component extends DCLogic {
       kf = [{ opacity: 1, transform: 'translateY(108%)' }, { opacity: 1, transform: 'translateY(0)' }];
       dur = 1300;
     } else if (type === 'mask') {
-      kf = [{ opacity: 1, transform: 'translateY(100%)', clipPath: 'inset(0 0 100% 0)' }, { opacity: 1, transform: 'translateY(0)', clipPath: 'inset(0 0 0% 0)' }];
+      kf = [{ opacity: 0, transform: 'translateY(32px)' }, { opacity: 1, transform: 'translateY(0)' }];
       dur = 1300;
     } else if (type === 'img') {
-      kf = [{ opacity: 1, clipPath: 'inset(100% 0 0 0)' }, { opacity: 1, clipPath: 'inset(0% 0 0 0)' }];
+      kf = [{ opacity: 0 }, { opacity: 1 }];
       dur = 1400;
       const im = el.querySelector('img');
-      if (im) im.animate([{ transform: 'scale(1.18)' }, { transform: 'scale(1)' }], { duration: 1100, delay, easing: EASE, fill: 'backwards' });
+      if (im) im.animate([{ transform: 'scale(1.08)' }, { transform: 'scale(1)' }], { duration: 900, delay, easing: EASE, fill: 'backwards' });
     } else if (type === 'fade') {
       kf = [{ opacity: 0 }, { opacity: 1 }];
       dur = 900;
@@ -684,6 +686,23 @@ class Component extends DCLogic {
       l.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 750, delay: delay + 60, easing: EASE, fill: 'backwards' });
       l.style.transform = '';
     });
+  }
+
+  setupVideo() {
+    const vids = Array.from(document.querySelectorAll('video[data-autoplay]'));
+    vids.forEach((v) => { v.loop = true; v.addEventListener('ended', () => { v.currentTime = 0; const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); }); v.muted = true; v.defaultMuted = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('muted', ''); });
+    if (this.reduce || !('IntersectionObserver' in window)) return;
+    this.vio = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        const v = en.target;
+        if (en.isIntersecting) {
+          if (v.preload === 'none') v.preload = 'auto';
+          const pr = v.play();
+          if (pr && pr.catch) pr.catch(() => {});
+        } else if (!v.paused) v.pause();
+      });
+    }, { threshold: 0.25 });
+    vids.forEach((v) => this.vio.observe(v));
   }
 
   setupMotion() {
@@ -743,6 +762,10 @@ class Component extends DCLogic {
       navFull: full,
       navCompact: !full,
       ctaDir: full ? 'row' : 'column',
+      osmehCols: wide ? 'minmax(0, 1fr) minmax(0, 0.8fr)' : 'minmax(0, 1fr)',
+      osmehGap: full ? '96px' : '48px',
+      osmehAspect: wide ? 'auto' : '4 / 5',
+      ctaCols: wide ? 'repeat(auto-fit, minmax(270px, 1fr))' : 'minmax(0, 1fr)',
       tabs: TABS.map(([id, label]) => ({ id, label, sel: tab === id, bg: tab === id ? '#292725' : 'transparent', fg: tab === id ? '#FAF8F4' : '#292725', border: tab === id ? '#292725' : '#DDD3C2' })),
       pickTab: (e) => this.setState({ tab: e.currentTarget.dataset.tab }),
       panelRef: this.panelRef,
@@ -761,13 +784,23 @@ class Component extends DCLogic {
       included: INCLUDED,
       teamMinH: wide ? '480px' : '420px',
       teamCols: wide ? 'minmax(0, 0.85fr) minmax(0, 1fr)' : 'minmax(0, 1fr)',
-      heroPad: wide ? '32px 40px' : '16px 20px 48px',
+      heroPad: wide ? '32px 40px' : 'clamp(16px, 3svh, 28px) 20px clamp(16px, 3svh, 24px)',
       heroCols: wide ? (full ? 'minmax(0, 1.12fr) minmax(0, 0.88fr)' : 'minmax(0, 1fr) minmax(0, 0.8fr)') : 'minmax(0, 1fr)',
       heroPhotoPad: wide ? '48px 16px 16px 0' : '0',
-      heroPhotoH: wide ? 'clamp(420px, calc(100svh - 196px), 680px)' : 'auto',
-      heroAspect: wide ? 'auto' : '960 / 828',
+      heroPhotoH: wide ? 'clamp(300px, calc(100svh - 196px), 680px)' : '100%',
+      heroAspect: 'auto',
       heroPhotoOrder: '0',
-      heroMinH: wide ? 'calc(100svh - 68px)' : 'auto',
+      heroMinH: wide ? 'calc(100svh - 69px)' : '540px',
+      heroH: wide ? 'auto' : 'calc(100svh - 69px)',
+      heroAlign: wide ? 'center' : 'stretch',
+      heroInnerH: wide ? 'auto' : '100%',
+      heroDisp: wide ? 'grid' : 'flex',
+      heroItems: wide ? 'center' : 'stretch',
+      heroGap: wide ? '32px' : 'clamp(16px, 2.6svh, 28px)',
+      heroH1: wide ? 'clamp(44px, min(5.4vw, 8.4vh), 68px)' : 'clamp(34px, min(10vw, 5.6svh), 46px)',
+      heroH1M: wide ? '24px' : 'clamp(12px, 2svh, 20px)',
+      heroPSize: wide ? '18px' : '16px',
+      heroCtaM: wide ? '32px' : 'clamp(16px, 2.6svh, 28px)',
       uspPhotoOrder: wide ? '0' : '2',
       ctaFlex: wide ? '0 0 auto' : '1 1 auto',
       phonePadX: wide ? '24px' : '0px',
