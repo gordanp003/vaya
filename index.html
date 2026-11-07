@@ -172,7 +172,7 @@ button { font-family: inherit; }
         <p data-reveal="up" style="margin: 16px 0 0; max-width: 52ch; color: #545A5E; text-wrap: pretty;">Sa ljubavlju, posvećenošću i osmehom stvaramo atmosferu u kojoj se svako dete oseća lepo, sigurno i slobodno da istražuje, igra se i uživa.</p>
         <p data-reveal="up" style="margin: 32px 0 0; padding-top: 24px; border-top: 1px solid #C9D3D8; max-width: 30em; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(26px, 2.6vw, 30px); line-height: 1.3; color: #6E5932; text-wrap: balance;">Jer najlepši deo svake proslave jesu srećna i nasmejana deca.</p>
       </div>
-      <div data-reveal="img" style="position: relative; justify-self: end; aspect-ratio: {{ osmehAspect }}; min-height: 420px; max-width: 460px; width: 100%; border-radius: 4px; overflow: hidden; background: #DCE3E6;">
+      <div style="position: relative; justify-self: end; aspect-ratio: {{ osmehAspect }}; min-height: 420px; max-width: 460px; width: 100%; border-radius: 4px; overflow: hidden; background: #DCE3E6;">
         <video data-autoplay="" muted="" loop="" playsinline="" preload="none" poster="assets/video/vaya-video-poster.jpg" aria-label="Video sa VAYA proslave: tim, deca i igra" width="720" height="1280" style="position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 30%;"><source src="assets/video/vaya-video.mp4" type="video/mp4"></video>
       </div>
     </div>
@@ -692,16 +692,24 @@ class Component extends DCLogic {
     const vids = Array.from(document.querySelectorAll('video[data-autoplay]'));
     vids.forEach((v) => { v.loop = true; v.addEventListener('ended', () => { v.currentTime = 0; const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); }); v.muted = true; v.defaultMuted = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('muted', ''); });
     if (this.reduce || !('IntersectionObserver' in window)) return;
+    const tryPlay = (v, n) => {
+      if (!v._vis || !v.paused) return;
+      const pr = v.play();
+      if (pr && pr.catch) pr.catch(() => { if (n < 5) setTimeout(() => tryPlay(v, n + 1), 300); });
+    };
+    vids.forEach((v) => {
+      ['loadeddata', 'canplay'].forEach((ev) => v.addEventListener(ev, () => tryPlay(v, 0)));
+    });
     this.vio = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         const v = en.target;
+        v._vis = en.isIntersecting;
         if (en.isIntersecting) {
-          if (v.preload === 'none') v.preload = 'auto';
-          const pr = v.play();
-          if (pr && pr.catch) pr.catch(() => {});
+          if (v.preload !== 'auto') v.preload = 'auto';
+          tryPlay(v, 0);
         } else if (!v.paused) v.pause();
       });
-    }, { threshold: 0.25 });
+    }, { threshold: 0.2, rootMargin: '150px 0px' });
     vids.forEach((v) => this.vio.observe(v));
   }
 
